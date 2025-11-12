@@ -1,0 +1,122 @@
+{
+  "CWE-79": {
+    "titulo": "Cross-Site Scripting (XSS)",
+    "o_que_e": "Uma falha que permite injetar scripts maliciosos (como JavaScript) em páginas web vistas por outros usuários.",
+    "qual_o_risco": "Roubo de cookies de sessão, captura de dados digitados, sequestro de contas de usuário e redirecionamento para sites falsos.",
+    "como_corrigir": "Sempre 'higienize' (sanitize) e 'escape' (ex: converter < para &lt;) qualquer dado vindo do usuário antes de exibi-lo em HTML."
+  },
+  "CWE-89": {
+    "titulo": "SQL Injection (Injeção de SQL)",
+    "o_que_e": "Uma falha que permite a um atacante interferir nas consultas que uma aplicação faz ao seu banco de dados.",
+    "qual_o_risco": "Permite ao atacante visualizar, modificar ou excluir dados do banco (incluindo dados de todos os usuários), e em alguns casos, obter controle total do servidor.",
+    "como_corrigir": "Nunca formate strings SQL com dados do usuário. Use sempre 'Prepared Statements' (Consultas Parametrizadas) e ORMs (Mapeadores Objeto-Relacional)."
+  },
+  "CWE-502": {
+    "titulo": "Desserialização de Dados Não Confiáveis",
+    "o_que_e": "Ocorre quando a aplicação recebe dados serializados (como um objeto em formato de texto) de uma fonte não confiável e os reconstrói sem validar.",
+    "qual_o_risco": "Pode permitir a Execução de Código Remoto (RCE), negação de serviço (DoS) ou ataques de injeção. É uma das falhas mais perigosas.",
+    "como_corrigir": "Evite desserializar dados de fontes não confiáveis. Se for necessário, use formatos de serialização seguros (como JSON puro) e realize validações rigorosas."
+  },
+  "CWE-78": {
+    "titulo": "OS Command Injection (Injeção de Comando)",
+    "o_que_e": "Uma falha que permite a um atacante executar comandos arbitrários no sistema operacional do servidor.",
+    "qual_o_risco": "Controle total do servidor. O atacante pode ler arquivos, instalar malware, ou usar seu servidor para atacar outros sistemas.",
+    "como_corrigir": "Nunca chame comandos do sistema operacional com dados do usuário. Use APIs internas da linguagem de programação para realizar a tarefa (ex: funções de manipulação de arquivos em vez de 'rm' ou 'del')."
+  },
+  "CWE-22": {
+    "titulo": "Path Traversal (Navegação de Diretório)",
+    "o_que_e": "Permite que um atacante acesse arquivos e diretórios que estão fora do diretório web raiz, usando sequências como '../' (ponto-ponto-barra).",
+    "qual_o_risco": "Leitura de arquivos sensíveis do servidor, como '/etc/passwd', arquivos de configuração com senhas de banco de dados, ou o código-fonte da aplicação.",
+    "como_corrigir": "Valide e normalize a entrada do usuário. Crie uma 'lista de permissões' de caminhos permitidos e impeça o uso de sequências como '../'."
+  },
+  "CWE-862": {
+    "titulo": "Missing Authorization (Autorização Incorreta)",
+    "o_que_e": "Também conhecida como 'Insecure Direct Object Reference' (IDOR). Ocorre quando a aplicação não verifica se o usuário logado tem permissão para acessar o recurso solicitado.",
+    "qual_o_risco": "Um usuário (ex: id=123) pode alterar o ID na URL (ex: id=124) e visualizar ou modificar os dados de outro usuário.",
+    "como_corrigir": "Em toda requisição, verifique não apenas se o usuário está autenticado, mas também se ele é o 'dono' do recurso que está tentando acessar."
+  },
+  "CWE-352": {
+    "titulo": "Cross-Site Request Forgery (CSRF)",
+    "o_que_e": "Engana um usuário logado para que ele execute uma ação indesejada em um site no qual ele está autenticado.",
+    "qual_o_risco": "O atacante pode forçar a vítima a trocar sua senha, transferir dinheiro, ou realizar qualquer outra ação de estado (POST, PUT, DELETE) sem seu consentimento.",
+    "como_corrigir": "Use 'Tokens Anti-CSRF'. São tokens únicos e secretos gerados para cada sessão de usuário e incluídos em todos os formulários e requisições que alteram dados."
+  },
+  "CWE-798": {
+    "titulo": "Uso de Credenciais Codificadas (Hard-coded)",
+    "o_que_e": "Armazenar senhas, chaves de API ou outros segredos diretamente no código-fonte da aplicação.",
+    "qual_o_risco": "Qualquer pessoa com acesso ao código (incluindo ex-funcionários ou atacantes que acessem o repositório) pode roubar esses segredos e obter acesso privilegiado.",
+    "como_corrigir": "Externalize os segredos. Use variáveis de ambiente, arquivos '.env', ou um 'cofre' de segredos (como HashiCorp Vault ou AWS Secrets Manager)."
+  },
+  "CWE-20": {
+    "titulo": "Improper Input Validation (Validação de Entrada Incorreta)",
+    "o_que_e": "Uma categoria ampla que serve como raiz para muitas outras falhas (como XSS e SQLi). Ocorre quando a aplicação não valida ou filtra corretamente os dados recebidos.",
+    "qual_o_risco": "Pode levar a falhas de injeção, corrupção de dados, negação de serviço e comportamento inesperado da aplicação.",
+    "como_corrigir": "Adote uma política de 'negação por padrão' (deny-by-default). Use 'listas de permissões' (allow-lists) em vez de 'listas de bloqueio' (block-lists)."
+  },
+  "CWE-434": {
+    "titulo": "Unrestricted Upload of File (Upload de Arquivo Malicioso)",
+    "o_que_e": "Permitir que um usuário faça upload de um arquivo com um tipo ou conteúdo perigoso (como um script .php, .jsp, ou .exe).",
+    "qual_o_risco": "Se o arquivo for executado no servidor, pode levar à Execução de Código Remoto (RCE) e controle total da máquina.",
+    "como_corrigir": "Verifique a extensão do arquivo em uma 'lista de permissões', renomeie o arquivo no upload, armazene-o fora do diretório web raiz e nunca execute-o."
+  },
+  "CWE-611": {
+    "titulo": "XML External Entity (XXE)",
+    "o_que_e": "Uma falha em aplicações que processam XML. Permite que um atacante interfira no processamento do XML para ler arquivos locais ou acessar recursos de rede internos.",
+    "qual_o_risco": "Leitura de arquivos sensíveis do servidor, negação de serviço (DoS) ou ataques de SSRF (Server-Side Request Forgery).",
+    "como_corrigir": "Desative o processamento de 'External Entities' (Entidades Externas) no seu processador de XML. A maioria das bibliotecas modernas faz isso por padrão."
+  },
+  "CWE-918": {
+    "titulo": "Server-Side Request Forgery (SSRF)",
+    "o_que_e": "Permite que um atacante force o servidor da aplicação a fazer requisições HTTP para outros sistemas em nome dele.",
+    "qual_o_risco": "O atacante pode escanear a rede interna do servidor, acessar bancos de dados internos, ou interagir com serviços em nuvem (como o metadata service da AWS).",
+    "como_corrigir": "Nunca confie em uma URL vinda do usuário. Use uma 'lista de permissões' de domínios e IPs para os quais o servidor pode se conectar."
+  },
+  "CWE-400": {
+    "titulo": "Uncontrolled Resource Consumption (Negação de Serviço - DoS)",
+    "o_que_e": "Ocorre quando um atacante pode consumir recursos do sistema (CPU, memória, espaço em disco) de forma descontrolada, sem limites.",
+    "qual_o_risco": "Negação de Serviço (DoS), fazendo com que a aplicação pare de responder para usuários legítimos.",
+    "como_corrigir": "Defina limites (rate limiting) para requisições, estabeleça quotas de uso de disco e memória, e aplique timeouts em operações custosas."
+  },
+  "CWE-306": {
+    "titulo": "Missing Authentication (Autenticação Incorreta)",
+    "o_que_e": "Ocorre quando uma funcionalidade ou página que deveria ser protegida por login pode ser acessada por qualquer usuário anônimo.",
+    "qual_o_risco": "Acesso não autorizado a dados sensíveis ou funções administrativas, como um painel de administrador que esqueceu de verificar a sessão.",
+    "como_corrigir": "Aplique um 'filtro' de autenticação em todas as rotas e páginas que não sejam públicas por design."
+  },
+  "CWE-287": {
+    "titulo": "Improper Authentication (Autenticação Incorreta)",
+    "o_que_e": "Refere-se a falhas no *processo* de login, como permitir senhas fracas, não ter proteção contra 'força bruta', ou ter mecanismos de recuperação de senha inseguros.",
+    "qual_o_risco": "Contas de usuários podem ser facilmente comprometidas por ataques de força bruta ou engenharia social.",
+    "como_corrigir": "Exija senhas fortes (MFA), implemente 'rate limiting' no login, e crie fluxos de recuperação de senha seguros (baseados em tokens)."
+  },
+  "CWE-311": {
+    "titulo": "Falta de Criptografia de Dados Sensíveis",
+    "o_que_e": "Transmitir ou armazenar dados sensíveis (como senhas, dados pessoais, cartões de crédito) em formato de texto puro (plaintext), sem criptografia.",
+    "qual_o_risco": "Qualquer pessoa que interceptar o tráfego (ex: em uma rede Wi-Fi pública) ou que ganhar acesso ao banco de dados pode ler os dados diretamente.",
+    "como_corrigir": "Use HTTPS (SSL/TLS) para todo o tráfego. Armazene senhas usando hashes fortes e 'salgados' (ex: bcrypt). Criptografe dados sensíveis em repouso."
+  },
+  "CWE-200": {
+    "titulo": "Exposição de Informações Sensíveis",
+    "o_que_e": "Ocorre quando a aplicação vaza informações que podem ajudar um atacante, como mensagens de erro detalhadas, versões de software, ou comentários no código.",
+    "qual_o_risco": "Facilita a fase de reconhecimento do atacante, ajudando-o a mapear o sistema e a encontrar vulnerabilidades conhecidas para as versões de software que você usa.",
+    "como_corrigir": "Configure a aplicação para exibir mensagens de erro genéricas em produção. Remova cabeçalhos de resposta que expõem a versão do servidor."
+  },
+  "CWE-94": {
+    "titulo": "Code Injection (Injeção de Código)",
+    "o_que_e": "Permite que um atacante injete e execute código na linguagem da aplicação (ex: PHP, Python, Java) no servidor.",
+    "qual_o_risco": "Similar à Injeção de Comando, leva à Execução de Código Remoto (RCE) e ao controle total do servidor.",
+    "como_corrigir": "Nunca use funções que avaliam texto como código (como 'eval()') com dados vindos do usuário. Use APIs e estruturas de dados seguras."
+  },
+  "CWE-787": {
+    "titulo": "Out-of-bounds Write (Escrita Fora dos Limites)",
+    "o_que_e": "Uma falha de baixo nível (comum em C/C++) onde a aplicação escreve dados além do final (ou antes do início) de um buffer de memória alocado.",
+    "qual_o_risco": "Corrupção de dados, travamento da aplicação (DoS), ou Execução de Código Remoto se o atacante conseguir sobrescrever ponteiros de função.",
+    "como_corrigir": "Use linguagens seguras (como Python, Java, Rust). Se usar C/C++, sempre verifique os limites (bounds checking) antes de escrever na memória."
+  },
+  "CWE-125": {
+    "titulo": "Out-of-bounds Read (Leitura Fora dos Limites)",
+    "o_que_e": "Similar ao CWE-787, mas ocorre quando a aplicação lê dados de uma posição de memória fora dos limites do buffer alocado.",
+    "qual_o_risco": "Vazamento de informações sensíveis que podem estar em outras partes da memória do programa (como senhas, chaves de criptografia, etc.).",
+    "como_corrigir": "Sempre valide os índices e ponteiros para garantir que eles estejam dentro dos limites do buffer de memória antes de ler."
+  }
+}
